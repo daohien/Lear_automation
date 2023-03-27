@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.util.Random;
+
 import org.openqa.selenium.Alert;
 
 public class lession_03_java {
@@ -25,15 +28,9 @@ public class lession_03_java {
 		String btnSignUp = "//a[@id='signin2']";
 		WebElement buttonSignUp = driver.findElement(By.xpath(btnSignUp));
 		
-		System.out.print(buttonSignUp);
+		System.out.println(buttonSignUp);
 		
 		// time show buttonSignUp
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		buttonSignUp.click();
 		
@@ -45,39 +42,25 @@ public class lession_03_java {
 			e.printStackTrace();
 		}
 		
-		// Sign up account 
+		//  ===== Sign up account ===== 
 		String inputName = "//input[@id='sign-username']";
 		WebElement userName = driver.findElement(By.xpath(inputName));
-		System.out.print("userName" + userName);
+		System.out.println("userName" + userName);
 		
 		String inputPassWord = "//input[@id='sign-password']";
 		WebElement passWord = driver.findElement(By.xpath(inputPassWord));
-		System.out.print("password" + passWord);
+		System.out.println("password" + passWord);
 		
 		String signUp = "//button[contains(text(),'Sign up')]";
 		WebElement btnCreateAcount = driver.findElement(By.xpath(signUp));
 		
-		userName.sendKeys("haizz123456789@");
-		
-		
-		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		passWord.sendKeys("Aa123456@");
-		
-		// Thieu dieu kien check account da ton tai
-		
-		// time show buttonSignUp
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// Random userName + PassWord
+		Random ranDomTextUser = new Random();
+		Random ranPassWordText = new Random();
+		String ranDomUserName = "Hien" + ranDomTextUser.nextInt(1000);
+		String ranDomPassWord = "Aa" + ranPassWordText.nextInt(1000);
+		userName.sendKeys(ranDomUserName);	
+		passWord.sendKeys(ranDomPassWord);
 		
 		btnCreateAcount.click();
 		
@@ -93,13 +76,7 @@ public class lession_03_java {
 		driver.switchTo().alert().accept();
 		
 		
-		//close button when account da ton tai
-		 
-//		String btnClose = "//body/div[@id='signInModal']/div[1]/div[1]/div[3]/button[1]";
-//		WebElement clickCloseAlert = driver.findElement(By.xpath(btnClose));
-//		clickCloseAlert.click();
-		
-		//Login account
+		// ===== Login account ===== 
 		String btnLoginIn = "//a[@id='login2']";
 		WebElement clickLogIn = driver.findElement(By.xpath(btnLoginIn));
 		clickLogIn.click();
@@ -121,24 +98,8 @@ public class lession_03_java {
 		WebElement loginAcc = driver.findElement(By.xpath(loginAccount));
 		
 		
-		//get text
-//		String valueUserName = userName.getText(); 
-//		String valuePassWord = passWord.getText();
-//		System.out.print("getUserName" + valueUserName);
-//		System.out.print("getPassWord" + valuePassWord);
-		
-		
-		//
-		inputUserName.sendKeys("haizz123456789@");
-		logPassWord.sendKeys("Aa123456@");
-//		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		inputUserName.sendKeys(ranDomUserName);
+		logPassWord.sendKeys(ranDomPassWord);
 		
 		loginAcc.click();
 		
@@ -149,7 +110,45 @@ public class lession_03_java {
 			e.printStackTrace();
 		}
 		
+		// ===== Check design =====
+		String lgOut = "//a[@id='logout2']";
+		WebElement getTextLogOut = driver.findElement(By.xpath(lgOut));
 		
+		String userNameLogin = "//a[@id='nameofuser']";
+		WebElement getAccLogin = driver.findElement(By.xpath(userNameLogin));
+				
+		String textLogOutActual = getTextLogOut.getText();
+		String textUserNameLogin = getAccLogin.getText();
+		
+		System.out.println(textLogOutActual);
+		System.out.println(textUserNameLogin);
+		
+		String textLogOutExpect = "Log out";		
+		String accountUserLoginExpect = "Welcome"+" "+ranDomUserName;
+		System.out.println(accountUserLoginExpect);
+		
+		if(textLogOutActual.equals(textLogOutExpect)&&textUserNameLogin.equals(accountUserLoginExpect)) {
+			//TC True
+			System.out.println("TC true: UI matching width design");
+		} else {
+			//TC True
+			System.out.println("TC False");
+		}
+		
+		// ===== Logout account success =====
+		
+		String btnLogOut = "//a[@id='logout2']";
+		WebElement clickBtnLogOut = driver.findElement(By.xpath(btnLogOut));
+		clickBtnLogOut.click();
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 		driver.quit();
 		
 	}
