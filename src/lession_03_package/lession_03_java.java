@@ -11,8 +11,7 @@ import java.util.Random;
 import org.openqa.selenium.Alert;
 
 public class lession_03_java {
-	public static void main(String[] args) {
-		
+	public static void demo_chrome() {
 		ChromeOptions option = new ChromeOptions();
 		option.addArguments("--remote-allow-origins=*");
 		WebDriver driver = new ChromeDriver(option);
@@ -150,6 +149,10 @@ public class lession_03_java {
 
 
 		driver.quit();
+	}
+	
+	public static void main(String[] args) {
 		
+		demo_chrome();
 	}
 }
