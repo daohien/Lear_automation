@@ -11,13 +11,31 @@ public class lession_03_edge {
 	public static void demo_edge(){
 		WebDriver edge_driver = new EdgeDriver();
 		
-		String url = "https://demo.guru99.com";
+		String url = "https://demo.guru99.com/v4/";
 		edge_driver.get(url);
 		
 		//Mazimize current window
 		edge_driver.manage().window().maximize();
 		
-		String xpathEmail = "//tbody/tr[5]/td[2]/input[1]";
+		// Click button here
+		String xpathHere = "//a[@href='http://demo.guru99.com/']";
+		WebElement clickBtnHere = edge_driver.findElement(By.xpath(xpathHere));
+		clickBtnHere.click();
+		
+		String url_ads = "https://demo.guru99.com/v4/#google_vignette";
+		String url_current = edge_driver.getCurrentUrl();
+		if(url_current.equals(url_ads)) {
+			String iframeLink = "//iframe[contains(@id,'google_ads_iframe')]";
+			WebElement iframeAdd = edge_driver.findElement(By.xpath(iframeLink));
+			
+			edge_driver.switchTo().frame(iframeAdd);
+			String clickBtnAdd = "//div[contains(@role, 'button')]";
+			WebElement clickBtnClose = edge_driver.findElement(By.xpath(clickBtnAdd));
+			clickBtnClose.click();
+			edge_driver.switchTo().defaultContent();
+		}
+	
+		String xpathEmail = "//input[@name='emailid']";
 		
 		WebElement inputEmail = edge_driver.findElement(By.xpath(xpathEmail));
 		
@@ -34,7 +52,7 @@ public class lession_03_edge {
 		}
 		
 		
-		String xpathSubmit = "//tbody/tr[6]/td[2]/input[1]";
+		String xpathSubmit = "//input[@value='Submit']";
 		WebElement btnSubmit =  edge_driver.findElement(By.xpath(xpathSubmit));
 		
 		btnSubmit.click();
@@ -51,22 +69,22 @@ public class lession_03_edge {
 		String url_login = "https://demo.guru99.com/v4";
 		edge_driver.get(url_login);
 		
-		String xpathUserName = "//tbody/tr[1]/td[2]/input[1]";
+		String xpathUserName = "//input[contains(@name,'uid')]";
 		WebElement inputUserName = edge_driver.findElement(By.xpath(xpathUserName));
 		
-		String xpathPassWord = "//tbody/tr[2]/td[2]/input[1]";
+		String xpathPassWord = "//input[contains(@name,'password')]";
 		WebElement inputPassWord = edge_driver.findElement(By.xpath(xpathPassWord));
 		
 		inputUserName.sendKeys(getTextValueUserName);
 		inputPassWord.sendKeys(getTextValuePass);
 		
 		
-		String xpathLogin = "//tbody/tr[3]/td[2]/input[1]";
+		String xpathLogin = "//input[contains(@name,'btnLogin')]";
 		WebElement btnLogin = edge_driver.findElement(By.xpath(xpathLogin));
 		btnLogin.click();
 		
 		
-		String xpathConfirmId = "//tbody/tr[3]/td";
+		String xpathConfirmId = "//td[contains(text(),'Manger Id')]";
 		WebElement confirmUserName = edge_driver.findElement(By.xpath(xpathConfirmId));
 		
 		String userNameExpect = confirmUserName.getText();
