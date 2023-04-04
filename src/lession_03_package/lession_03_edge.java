@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 
 public class lession_03_edge {
-	public static void demo_edge(){
+	public void demo_edge(){
 		WebDriver edge_driver = new EdgeDriver();
 		
 		String url = "https://demo.guru99.com/v4/";
@@ -104,6 +104,7 @@ public class lession_03_edge {
 	}
 		
 	public static void main(String[] args) {
-		demo_edge();
+		lession_03_edge test_edge = new lession_03_edge();
+		test_edge.demo_edge();
 	}
 }

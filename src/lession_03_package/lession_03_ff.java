@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class lession_03_ff {
-	public static void demo_ff() {
+	public void demo_ff() {
 		WebDriver ff_driver = new FirefoxDriver();
 		//get link url from page home
 		String urlHome = "https://www.demoblaze.com/";
@@ -144,6 +144,7 @@ public class lession_03_ff {
 	}
 	
 	public static void main(String[] args) {
-		demo_ff();
+		lession_03_ff test_firefox = new lession_03_ff();
+		test_firefox.demo_ff();
 	}
 }

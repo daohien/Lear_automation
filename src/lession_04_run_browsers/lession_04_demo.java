@@ -18,15 +18,14 @@ public class lession_04_demo {
 		ChromeOptions option = new ChromeOptions();
 		option.addArguments("--remote-allow-origins=*");
 		WebDriver chrome_driver = new ChromeDriver(option);
+		login(chrome_driver);
 		
 //		Run firefox
 		WebDriver ff_driver = new FirefoxDriver();
+		login(ff_driver);
 		
 //		Run MS edge
 		WebDriver edge_driver = new EdgeDriver();
-		
-		login(chrome_driver);
-		login(ff_driver);
 		login(edge_driver);
 		
 	}
@@ -44,6 +43,7 @@ public class lession_04_demo {
 		
 		String btnSignUp = "//a[@id='signin2']";
 		WebElement buttonSignUp = mulDriver.findElement(By.xpath(btnSignUp));
+		
 		
 		System.out.println(buttonSignUp);
 		
@@ -72,10 +72,9 @@ public class lession_04_demo {
 		WebElement btnCreateAcount = mulDriver.findElement(By.xpath(signUp));
 		
 		// Random userName + PassWord
-		Random ranDomTextUser = new Random();
-		Random ranPassWordText = new Random();
-		String ranDomUserName = "Hien" + ranDomTextUser.nextInt(1000);
-		String ranDomPassWord = "Aa" + ranPassWordText.nextInt(1000);
+		Random ranDom = new Random();
+		String ranDomUserName = "Hien" + ranDom.nextInt(1000);
+		String ranDomPassWord = "Aa" + ranDom.nextInt(1000);
 		userName.sendKeys(ranDomUserName);	
 		passWord.sendKeys(ranDomPassWord);
 		
