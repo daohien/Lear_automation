@@ -61,14 +61,7 @@ public class alertTab {
 		
 		for (String str : windows) {
 			mulDriver.switchTo().window(str); //ma windown
-			System.out.println(str);
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			System.out.println(str);		
 			if (mulDriver.getTitle().equalsIgnoreCase(title)) {
 				break;
 			}
