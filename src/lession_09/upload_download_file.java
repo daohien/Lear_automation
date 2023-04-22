@@ -13,8 +13,51 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class upload_download_file {
+	
+	public WebDriver initDriver(String browser) {
+		WebDriver driver = null;
+		if (browser.equalsIgnoreCase("chrome")){
+
+			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();						
+			chromePrefs.put("profile.default_content_settings.popups", 0);		// tat pop up file browser, auto accept				
+			chromePrefs.put("download.default_directory", System.getProperty("user.dir") + File.separator + "resource");	// config folder download					
+
+
+			ChromeOptions option = new ChromeOptions();
+			option.addArguments("--remote-allow-origins=*");
+
+			option.setExperimentalOption("prefs", chromePrefs);	
+			driver = new ChromeDriver(option);
+			
+		} else if(browser.equalsIgnoreCase("firefox")) {
+			driver = new FirefoxDriver();
+			FirefoxOptions options = new FirefoxOptions();	
+			options.addPreference("browser.download.folderList", 2);
+			options.addPreference("browser.download.dir",  System.getProperty("user.dir") + File.separator + "resource");
+			options.addPreference("browser.download.useDownloadDir", true);
+			options.addPreference("browser.download.viewableInternally.enabledTypes", "");
+			options.addPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf;text/plain;application/text;text/xml;application/xml");
+			options.addPreference("pdfjs.disabled", true);  // disable the built-in PDF viewer
+			driver = new FirefoxDriver(options);
+			
+
+		} else {
+			driver = new EdgeDriver();
+
+			
+			
+
+		}
+		
+		return driver;
+		
+	}
+	
 	
 	public void uploadFileRobot(WebDriver driver) {
 		// full max-width 100
@@ -160,17 +203,28 @@ public class upload_download_file {
 			System.out.println("Upload Trues");
 		}
 			
-		driver.quit();	
 				
 	}
+
 	
-	public void downLoadFile(WebDriver driver, String browser, ChromeOptions option) {
+	public void downLoadFile(WebDriver driver) {
+		
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
 		String urlRegister = "https://the-internet.herokuapp.com/download";
 		//call link url
 		driver.get(urlRegister);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		WebElement fileDownLoad = driver.findElement(By.xpath("//div[@class='example']//a[1]"));
+		String getTextFileDownLoad = fileDownLoad.getText();
+		fileDownLoad.click();
 		
 		try {
 			Thread.sleep(5000);
@@ -179,45 +233,24 @@ public class upload_download_file {
 			e.printStackTrace();
 		}
 		
-		WebElement fileDownLoad = driver.findElement(By.xpath("//a[text()='evening.png']"));
-		String getTextFileDownLoad = fileDownLoad.getText();
-		fileDownLoad.click();
-		
-		if (browser.equalsIgnoreCase("chrome")) {
-			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();						
-			chromePrefs.put("profile.default_content_settings.popups", 0);	// close popup show address					
-			chromePrefs.put("download.default_directory", System.getProperty("user.dir") + File.separator + "resource");	// set folder download
-			File folder = new File(System.getProperty("user.dir")  + File.separator + "resource"); //load folder resources
-			
-			option.setExperimentalOption("prefs", chromePrefs);
-			
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			// List the files on that folder
-			File[] listOfFiles = folder.listFiles();
-			// Look for the file in the files
-			// You should write smart REGEX according to the filename
-			for (File listOfFile : listOfFiles) {
-				if (listOfFile.isFile()) { //to check if the object is a file or not
-					String fileName = listOfFile.getName();
-					System.out.println("File " + fileName);
-					if (fileName.equalsIgnoreCase(getTextFileDownLoad)) {
-						System.out.println("found...");
-						listOfFile.deleteOnExit();
-						break;
-					}
+		File folder = new File(System.getProperty("user.dir") + File.separator + "resource");
+		// List the files on that folder
+		File[] listOfFiles = folder.listFiles();
+		// Look for the file in the files
+		// You should write smart REGEX according to the filename
+		for (File listOfFile : listOfFiles) {
+			if (listOfFile.isFile()) { //to check if the object is a file or not
+				String fileName = listOfFile.getName();
+				System.out.println("File " + fileName);
+				if (fileName.equalsIgnoreCase(getTextFileDownLoad)) {
+					System.out.println("found...");
+					listOfFile.deleteOnExit();
+					break;
 				}
 			}
-			
-		} else if(browser.equalsIgnoreCase("firefox")) {
-			
-		} else {
-			
 		}
+			
+		
 		driver.quit();
 		
 	}
@@ -225,13 +258,12 @@ public class upload_download_file {
 	public static void main(String[] args) {
 		upload_download_file downLoad_UploadFile = new upload_download_file();
 		//Run chrome
-		ChromeOptions option = new ChromeOptions();
-		option.addArguments("--remote-allow-origins=*");
-		WebDriver chrome_driver = new ChromeDriver(option);
-		downLoad_UploadFile.uploadFileRobot(chrome_driver);
-		downLoad_UploadFile.uploadMuiltipleFile(chrome_driver);
-		downLoad_UploadFile.downLoadFile(chrome_driver, "chrome", option);
-		
+		//WebDriver chrome_driver = downLoad_UploadFile.initDriver("chrome");
+		//downLoad_UploadFile.uploadFileRobot(chrome_driver);
+		//downLoad_UploadFile.uploadMuiltipleFile(chrome_driver);
+		//downLoad_UploadFile.downLoadFile(chrome_driver);
+		WebDriver firefox_driver = downLoad_UploadFile.initDriver("firefox");
+		downLoad_UploadFile.downLoadFile(firefox_driver);
 	}
 
 }
