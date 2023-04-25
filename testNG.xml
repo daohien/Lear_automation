@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="regresion_test" verbose="1" >
+  <test name="chrome" >
+    <classes>
+       <class name="lession_10.signUpAcc" />
+    </classes>
+  </test>
+</suite>

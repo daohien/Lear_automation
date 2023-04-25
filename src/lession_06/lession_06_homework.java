@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class lession_06_homework {
 	
+	
 	public void register_account(WebDriver mulDriver) {
 		
 		// full max-width 100
