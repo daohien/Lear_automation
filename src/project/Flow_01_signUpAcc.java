@@ -1,4 +1,4 @@
-package lession_10;
+package project;
 
 import java.util.Random;
 
@@ -9,16 +9,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
 
-public class signUpAcc {
+public class Flow_01_signUpAcc {
+	WebDriver driver = null;
 	
+	@BeforeTest
+	@Parameters({"browser"})
 	public WebDriver initDriver(String browser) {
-		WebDriver driver = null;
+		
 		if (browser.equalsIgnoreCase("chrome")){
 			
 			ChromeOptions option = new ChromeOptions();
@@ -29,7 +35,9 @@ public class signUpAcc {
 			driver = new FirefoxDriver();
 
 		} else {
-			driver = new EdgeDriver();
+			EdgeOptions options = new EdgeOptions();
+			options.addArguments("--remote-allow-origins=*");
+			driver = new EdgeDriver(options);
 			
 		}
 		
@@ -37,9 +45,14 @@ public class signUpAcc {
 		
 	}
 	
+	@AfterTest
+	public void cleanUp() {
+		driver.quit();
+	}
+	
 	@Test
-	public void userNameIsBlank() {
-		WebDriver driver = initDriver("chrome");
+	public void TC01_userNameIsBlank() {
+		
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -64,8 +77,6 @@ public class signUpAcc {
 			e.printStackTrace();
 		}
 		
-		
-		// case01: blank userName
 		String xpathSignPassWord = "//input[@id='sign-password']";
 		WebElement inputSignPassWord = driver.findElement(By.xpath(xpathSignPassWord));
 		
@@ -92,12 +103,11 @@ public class signUpAcc {
 		Assert.assertEquals(actualResult, expectResult);
 		alert.accept();
 		
-		driver.quit();
 	}
 	
 	@Test
-	public void passWordIsBlank() {
-		WebDriver driver = initDriver("chrome");
+	public void TC02_passWordIsBlank() {
+		
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -147,13 +157,11 @@ public class signUpAcc {
 		Assert.assertEquals(actualResult, expectResult);
 		alert.accept();
 		
-		driver.quit();
-		
 	}
 
 	@Test
-	public void successAccRegister() {
-		WebDriver driver = initDriver("chrome");
+	public void TC03_successAccRegister() {
+		
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -201,12 +209,18 @@ public class signUpAcc {
 		WebElement btnClickSignUp = driver.findElement(By.xpath(xpathSignUp));
 		btnClickSignUp.click();
 		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Alert alert = driver.switchTo().alert();
 		String actualResult = alert.getText();
 		
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -218,13 +232,11 @@ public class signUpAcc {
 		Assert.assertEquals(actualResult, expectResult);
 		alert.accept();
 		
-		driver.quit();
-		
 	}
 	
 	@Test
-	public void accAlreadyExists() {
-		WebDriver driver = initDriver("chrome");
+	public void TC04_accAlreadyExists() {
+		
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -268,6 +280,12 @@ public class signUpAcc {
 		WebElement btnClickSignUp = driver.findElement(By.xpath(xpathSignUp));
 		btnClickSignUp.click();
 		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Alert alert = driver.switchTo().alert();
 		String actualResult = alert.getText();
@@ -284,13 +302,12 @@ public class signUpAcc {
 		String expectResult = "This user already exist.";
 		Assert.assertEquals(actualResult, expectResult);
 		alert.accept();
-		driver.quit();
 		
 	}
 	
 	@Test
-	public void clickIconClose() {
-		WebDriver driver = initDriver("chrome");
+	public void TC05_clickIconClose() {
+		
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -334,13 +351,11 @@ public class signUpAcc {
 		
 		Assert.assertEquals(getValActualResult, valExpectResult);
 		
-		driver.quit();
-		
 	}
 	
 	@Test
-	public void clickBtnClose() {
-		WebDriver driver = initDriver("chrome");
+	public void TC06_clickBtnClose() {
+		
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -384,8 +399,87 @@ public class signUpAcc {
 		
 		Assert.assertEquals(getValActualResult, valExpectResult);
 		
-		driver.quit();
-		
 	}
 	
+	
+	public void TC07_checkGui() {
+		// full max-width 100
+		driver.manage().window().maximize();	
+		//get link url from page home
+		String urlRegister = "https://www.demoblaze.com/index.html";
+		//call link url
+		driver.get(urlRegister);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String xpathBtnSignUp = "//a[@id='signin2']";
+		WebElement btnSignUp = driver.findElement(By.xpath(xpathBtnSignUp));
+		btnSignUp.click();
+	
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String xpathTitle = "//h5[@id='signInModalLabel']";
+		WebElement titleSignUp = driver.findElement(By.xpath(xpathTitle));
+		// color title
+		String colTitleActualResult = titleSignUp.getCssValue("color");
+		
+		String colTitleExpectResult = "#868688";
+		
+		String xpathIconClose = "//h5[@id='signInModalLabel']/following-sibling::button";
+		WebElement btnIconClose = driver.findElement(By.xpath(xpathIconClose));
+		String colorIconClose = btnIconClose.getCssValue("color");
+		
+		String xpathUserName = "//input[@id='sign-username']";
+		WebElement inputUserName = driver.findElement(By.xpath(xpathUserName));
+		
+		String xpathSignPassWord = "//input[@id='sign-password']";
+		WebElement inputSignPassWord = driver.findElement(By.xpath(xpathSignPassWord));
+		
+		String xpathBtnClose = "//body/div[@id='signInModal']/div[1]/div[1]/div[3]/button[1]";
+		WebElement btnClose = driver.findElement(By.xpath(xpathBtnClose));
+		
+		String xpathSignUp = "//button[@onclick='register()']";
+		WebElement btnClickSignUp = driver.findElement(By.xpath(xpathSignUp));
+		
+		Assert.assertEquals(colTitleActualResult, colTitleExpectResult);
+		
+		btnIconClose.click();
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
