@@ -15,37 +15,9 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class Flow_06_placeOrder {
+import common.general;
 
-	WebDriver driver = null;
-
-	@BeforeTest
-	@Parameters({ "browser" })
-	public WebDriver initDriver(String browser) {
-
-		if (browser.equalsIgnoreCase("chrome")) {
-
-			ChromeOptions option = new ChromeOptions();
-			option.addArguments("--remote-allow-origins=*");
-			driver = new ChromeDriver(option);
-
-		} else if (browser.equalsIgnoreCase("firefox")) {
-			driver = new FirefoxDriver();
-
-		} else {
-			EdgeOptions options = new EdgeOptions();
-			options.addArguments("--remote-allow-origins=*");
-			driver = new EdgeDriver(options);
-		}
-
-		return driver;
-
-	}
-
-	@AfterTest
-	public void cleanUp() {
-		driver.quit();
-	}
+public class Flow_06_placeOrder extends general {
 
 	// Add Product
 	@Test

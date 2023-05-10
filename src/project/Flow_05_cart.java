@@ -86,7 +86,6 @@ public class Flow_05_cart {
 	}
 	
 	//	Have Product
-	@Test
 	public void haveProduct() {
 		// full max-width 100
 		driver.manage().window().maximize();	
@@ -130,8 +129,9 @@ public class Flow_05_cart {
 	}
 	
 	
-	@Test(dependsOnMethods = {"haveProduct"})
+	@Test
 	public void TC02_productImage() {
+		haveProduct();
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -168,8 +168,9 @@ public class Flow_05_cart {
 	
 	
 	
-	@Test(dependsOnMethods = {"haveProduct"})
+	@Test
 	public void TC03_productTitle() {
+		haveProduct();
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -205,8 +206,9 @@ public class Flow_05_cart {
 	}
 	
 	
-	@Test(dependsOnMethods = {"haveProduct"})
+	@Test
 	public void TC04_productPrice() {
+		haveProduct();
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -242,8 +244,9 @@ public class Flow_05_cart {
 	}
 	
 	
-	@Test(dependsOnMethods = {"haveProduct"})
+	@Test
 	public void TC05_btnDelete() {
+		haveProduct();
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -277,10 +280,10 @@ public class Flow_05_cart {
 		Assert.assertEquals(btnAddCartActualResult, btnAddCartExpectResult);
 		
 	}
-	
-//	Q&A 
-	@Test(dependsOnMethods = {"haveProduct"})
-	public void TC09_clickBtnDelete() {
+	 
+	@Test
+	public void TC06_clickBtnDelete() {
+		haveProduct();
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -326,8 +329,9 @@ public class Flow_05_cart {
 		
 	}
 	
-	@Test(dependsOnMethods = {"haveProduct"})
+	@Test
 	public void TC07_totalProduct() {
+		haveProduct();
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
@@ -368,8 +372,9 @@ public class Flow_05_cart {
 		
 	}
 	
-	@Test(dependsOnMethods = {"haveProduct"})
+	@Test
 	public void TC08_totalMoreProducts() {
+		haveProduct();
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
