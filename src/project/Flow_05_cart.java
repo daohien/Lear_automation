@@ -167,11 +167,11 @@ public class Flow_05_cart extends general {
 		}
 		
 		
-		String imgActualResult = driver.findElement(By.xpath("//tbody[@id = 'tbodyid']/tr[@class='success']/td/img")).getAttribute("src");
+		String titleActualResult = driver.findElement(By.xpath("//td[contains(text(),'Samsung galaxy s6')]")).getText();
 		
-		String imgExpectResult = "https://www.demoblaze.com/imgs/galaxy_s6.jpg";
+		String titleExpectResult = "Samsung galaxy s6";
 
-		Assert.assertEquals(imgActualResult, imgExpectResult);
+		Assert.assertEquals(titleActualResult, titleExpectResult);
 		
 	}
 	
