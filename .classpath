@@ -89,5 +89,12 @@
 	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/poi-ooxml-3.17.jar"/>
 	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/poi-ooxml-schemas-3.17.jar"/>
 	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/lib/extentreports-5.0.9.jar"/>
+	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/lib/freemarker-2.3.30.jar"/>
+	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/lib/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/lib/lombok-1.18.12.jar"/>
+	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/lib/reactive-streams-1.0.3.jar"/>
+	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/lib/rxjava-3.0.4.jar"/>
+	<classpathentry kind="lib" path="H:/Automation/lession_02/libs/commons-io-2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

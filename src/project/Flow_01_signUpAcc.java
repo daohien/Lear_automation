@@ -1,9 +1,14 @@
 package project;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +21,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+import common.commonFunc;
 import common.general;
 
 import org.testng.Assert;
@@ -23,15 +34,25 @@ import org.testng.Assert;
 
 public class Flow_01_signUpAcc extends general {
 	
-	@Test
+	
 	public void TC01_userNameIsBlank() {
+		ExtentReports extent = new ExtentReports(); // declare using extend report
+		ExtentSparkReporter spark = new ExtentSparkReporter("./report/automation.html"); //point the report to the folder
+		extent.attachReporter(spark); // Trinh quan ly report
 		
+		ExtentTest test = extent.createTest("TC01_userNameIsBlank"); // create moi mot case test
+		
+		//ExtentTest: chiu trach nhiem ghi log, pass, fail, step
+			
 		// full max-width 100
+		test.info("maximinze browsers");
 		driver.manage().window().maximize();	
 		//get link url from page home
 		String urlRegister = "https://www.demoblaze.com/index.html";
+		test.info("go to URL" + urlRegister);
 		//call link url
-		driver.get(urlRegister);
+		driver.get("get URL" + urlRegister);
+		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -54,6 +75,7 @@ public class Flow_01_signUpAcc extends general {
 		WebElement inputSignPassWord = driver.findElement(By.xpath(xpathSignPassWord));
 		
 		inputSignPassWord.sendKeys("Aa123456");
+		test.info("input Sign PassWord" + inputSignPassWord);
 		
 		try {
 			Thread.sleep(5000);
@@ -76,9 +98,11 @@ public class Flow_01_signUpAcc extends general {
 		Assert.assertEquals(actualResult, expectResult);
 		alert.accept();
 		
+		extent.flush();
+		
 	}
 	
-	@Test
+	
 	public void TC02_passWordIsBlank() {
 		
 		// full max-width 100
@@ -135,10 +159,15 @@ public class Flow_01_signUpAcc extends general {
 	@Test
 	public void TC03_successAccRegister() {
 		
+		test = extent.createTest("TC03_successAccRegister"); // create moi mot case test
+		
 		// full max-width 100
+		test.info("maximize browser");
 		driver.manage().window().maximize();	
 		//get link url from page home
 		String urlRegister = "https://www.demoblaze.com/index.html";
+		
+		test.info("go to URL" + urlRegister);
 		//call link url
 		driver.get(urlRegister);
 		try {
@@ -207,7 +236,7 @@ public class Flow_01_signUpAcc extends general {
 		
 	}
 	
-	@Test
+
 	public void TC04_accAlreadyExists() {
 		
 		// full max-width 100
@@ -278,7 +307,7 @@ public class Flow_01_signUpAcc extends general {
 		
 	}
 	
-	@Test
+	
 	public void TC05_clickIconClose() {
 		
 		// full max-width 100
@@ -326,7 +355,7 @@ public class Flow_01_signUpAcc extends general {
 		
 	}
 	
-	@Test
+	
 	public void TC06_clickBtnClose() {
 		
 		// full max-width 100
