@@ -34,7 +34,13 @@ public class ExcelUtil {
 			if(rw!=null) {
 				Cell cell = rw.getCell(icol);
 				if(cell!=null) {
-					output_data = cell.getRichStringCellValue().toString();
+					int style = cell.getCellType(); // get ve format cot
+					if (style == 0) {
+						output_data = "" + cell.getNumericCellValue(); // get dang number va ep kieu qua chuoi
+					} else if (style == 1) {
+						output_data = ""+ cell.getRichStringCellValue();
+					}
+					
 				}
 			}
 

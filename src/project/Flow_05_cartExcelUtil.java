@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import common.ExcelUtil;
-
+import common.commonFunc;
 import common.general;
 
 public class Flow_05_cartExcelUtil extends general {
@@ -15,9 +15,10 @@ public class Flow_05_cartExcelUtil extends general {
 		// full max-width 100
 		driver.manage().window().maximize();	
 		//get link url from page home
-		String urlRegister = "https://www.demoblaze.com/index.html";
+		
+		String url = "https://www.demoblaze.com";
 		//call link url
-		driver.get(urlRegister);
+		driver.get(url);
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -60,6 +61,7 @@ public class Flow_05_cartExcelUtil extends general {
 		driver.manage().window().maximize();	
 		//get link url from page home
 		String urlRegister = "https://www.demoblaze.com/index.html";
+		String domain = "https://www.demoblaze.com";
 		//call link url
 		driver.get(urlRegister);
 		try {
@@ -84,20 +86,23 @@ public class Flow_05_cartExcelUtil extends general {
 		ExcelUtil excel = new ExcelUtil();
 		
 		String imgActualResult = driver.findElement(By.xpath("//tbody[@id = 'tbodyid']/tr[@class='success']/td/img")).getAttribute("src");
-		String titleActualResult = driver.findElement(By.xpath("//td[contains(text(),'Samsung galaxy s6')]")).getText();
-		String priceActualResult = driver.findElement(By.xpath("//td[contains(text(),'360')]")).getText();
-		String btnAddCartActualResult = driver.findElement(By.xpath("//a[contains(text(),'Delete')]")).getText();
-
+		//String titleActualResult = driver.findElement(By.xpath("//td[contains(text(),'Samsung galaxy s6')]")).getText();
+		//String priceActualResult = driver.findElement(By.xpath("//td[contains(text(),'360')]")).getText();
+		//String btnAddCartActualResult = driver.findElement(By.xpath("//a[contains(text(),'Delete')]")).getText();
+		
+		
 		String imgExpectResult = excel.ReadDataAtCell("./resource/data.xlsx", "cart", ExcelUtil.cart_row_start, ExcelUtil.cart_col_image);
-		String titleExpectResult = excel.ReadDataAtCell("./resource/data.xlsx", "cart", ExcelUtil.cart_row_start, ExcelUtil.cart_col_title);
-		String priceExpectResult = excel.ReadDataAtCell("./resource/data.xlsx", "cart", ExcelUtil.cart_row_start, ExcelUtil.cart_col_price);
-		String deleteExpectResult = excel.ReadDataAtCell("./resource/data.xlsx", "cart", ExcelUtil.cart_row_start, ExcelUtil.cart_col_delete);
+		imgExpectResult = domain + imgExpectResult;
+		//String titleExpectResult = excel.ReadDataAtCell("./resource/data.xlsx", "cart", ExcelUtil.cart_row_start, ExcelUtil.cart_col_title);
+		//String priceExpectResult = excel.ReadDataAtCell("./resource/data.xlsx", "cart", ExcelUtil.cart_row_start, ExcelUtil.cart_col_price);
+		//String btnAddCartExpectResult = excel.ReadDataAtCell("./resource/data.xlsx", "cart", ExcelUtil.cart_row_start, ExcelUtil.cart_col_delete);
 
 		
-		
-		
-
+		//Assert.assertEquals(btnAddCartActualResult, btnAddCartExpectResult);
+		//Assert.assertEquals(priceActualResult, priceExpectResult);
+		//Assert.assertEquals(titleActualResult, titleExpectResult);
 		Assert.assertEquals(imgActualResult, imgExpectResult);
+		func.verifyContais(imgExpectResult,imgActualResult);
 		
 	}
 	

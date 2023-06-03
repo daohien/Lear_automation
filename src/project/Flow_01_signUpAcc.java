@@ -34,24 +34,20 @@ import org.testng.Assert;
 
 public class Flow_01_signUpAcc extends general {
 	
-	
+	@Test
 	public void TC01_userNameIsBlank() {
-		ExtentReports extent = new ExtentReports(); // declare using extend report
-		ExtentSparkReporter spark = new ExtentSparkReporter("./report/automation.html"); //point the report to the folder
-		extent.attachReporter(spark); // Trinh quan ly report
-		
+
 		ExtentTest test = extent.createTest("TC01_userNameIsBlank"); // create moi mot case test
 		
 		//ExtentTest: chiu trach nhiem ghi log, pass, fail, step
 			
 		// full max-width 100
-		test.info("maximinze browsers");
-		driver.manage().window().maximize();	
-		//get link url from page home
-		String urlRegister = "https://www.demoblaze.com/index.html";
-		test.info("go to URL" + urlRegister);
-		//call link url
-		driver.get("get URL" + urlRegister);
+		commonFunc.maximinze(driver, test);
+		
+		//get link url from page home	
+		
+		commonFunc.openUrl(driver, test, url);
+		
 		
 		try {
 			Thread.sleep(5000);
@@ -60,9 +56,8 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathBtnSignUp = "//a[@id='signin2']";
-		WebElement btnSignUp = driver.findElement(By.xpath(xpathBtnSignUp));
-		btnSignUp.click();
+		// click btn SignUp
+		commonFunc.clickBtnSignUp(driver, test);
 	
 		try {
 			Thread.sleep(5000);
@@ -71,9 +66,8 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathSignPassWord = "//input[@id='sign-password']";
-		WebElement inputSignPassWord = driver.findElement(By.xpath(xpathSignPassWord));
-		
+		// xpath Input PassWord
+		commonFunc.xpathInputPassWord(driver, test, inputSignPassWord);
 		inputSignPassWord.sendKeys("Aa123456");
 		test.info("input Sign PassWord" + inputSignPassWord);
 		
@@ -84,33 +78,38 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathSignUp = "//button[@onclick='register()']";
-		WebElement btnClickSignUp = driver.findElement(By.xpath(xpathSignUp));
-		btnClickSignUp.click();
+		commonFunc.xpathBtnRegister(driver, test, btnRegister);;
+		btnRegister.click();
+		test.info("click btn signUp");
+		System.out.println("click btn signUp");
 		
 		
 		Alert alert = driver.switchTo().alert();
 		String actualResult = alert.getText();
 		
+		test.info("Alert:" + actualResult);
 		System.out.println(actualResult);
 		
 		String expectResult = "Please fill out Username and Password.";
 		Assert.assertEquals(actualResult, expectResult);
 		alert.accept();
 		
-		extent.flush();
+		
 		
 	}
 	
 	
 	public void TC02_passWordIsBlank() {
 		
+		test = extent.createTest("TC02_passWordIsBlank");
+		
 		// full max-width 100
-		driver.manage().window().maximize();	
-		//get link url from page home
-		String urlRegister = "https://www.demoblaze.com/index.html";
+		commonFunc.maximinze(driver, test);
+		
 		//call link url
-		driver.get(urlRegister);
+		String url = "https://www.demoblaze.com";
+		commonFunc.openUrl(driver, test, url);
+		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -118,9 +117,8 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathBtnSignUp = "//a[@id='signin2']";
-		WebElement btnSignUp = driver.findElement(By.xpath(xpathBtnSignUp));
-		btnSignUp.click();
+		// click btn SignUp
+		commonFunc.clickBtnSignUp(driver, test);
 	
 		try {
 			Thread.sleep(5000);
@@ -129,8 +127,7 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathUserName = "//input[@id='sign-username']";
-		WebElement inputUserName = driver.findElement(By.xpath(xpathUserName));
+		commonFunc.xpathUserName(driver, test, inputUserName);
 		inputUserName.sendKeys("HienDT");
 		
 		try {
@@ -140,10 +137,8 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathSignUp = "//button[@onclick='register()']";
-		WebElement btnClickSignUp = driver.findElement(By.xpath(xpathSignUp));
-		btnClickSignUp.click();
-		
+		commonFunc.xpathBtnRegister(driver, test, btnRegister);;
+		btnRegister.click();
 		
 		Alert alert = driver.switchTo().alert();
 		String actualResult = alert.getText();
@@ -156,20 +151,18 @@ public class Flow_01_signUpAcc extends general {
 		
 	}
 
-	@Test
+	
 	public void TC03_successAccRegister() {
 		
 		test = extent.createTest("TC03_successAccRegister"); // create moi mot case test
 		
 		// full max-width 100
-		test.info("maximize browser");
-		driver.manage().window().maximize();	
+		commonFunc.maximinze(driver, test);
+			
 		//get link url from page home
-		String urlRegister = "https://www.demoblaze.com/index.html";
+		String url = "https://www.demoblaze.com";
+		commonFunc.openUrl(driver, test, url);
 		
-		test.info("go to URL" + urlRegister);
-		//call link url
-		driver.get(urlRegister);
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
@@ -177,9 +170,9 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathBtnSignUp = "//a[@id='signin2']";
-		WebElement btnSignUp = driver.findElement(By.xpath(xpathBtnSignUp));
-		btnSignUp.click();
+		// click btn SignUp
+		commonFunc.clickBtnSignUp(driver, test);
+			
 	
 		try {
 			Thread.sleep(5000);
@@ -188,17 +181,16 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		Random ran = new Random();
-		String ranDomUserName = "Hien" + ran.nextInt(1000);
-		String ranDomPassWord = "Aa" + ran.nextInt(1000);
+
+		String userName = "Hien" + func.getTimeStem();
+		String passWord = "Aa" + func.getTimeStem();
 		
-		String xpathUserName = "//input[@id='sign-username']";
-		WebElement inputUserName = driver.findElement(By.xpath(xpathUserName));
-		inputUserName.sendKeys(ranDomUserName);
+		commonFunc.xpathUserName(driver, test, inputUserName);
+		inputUserName.sendKeys(userName);
 		
 		String xpathSignPassWord = "//input[@id='sign-password']";
 		WebElement inputSignPassWord = driver.findElement(By.xpath(xpathSignPassWord));
-		inputSignPassWord.sendKeys(ranDomPassWord);
+		inputSignPassWord.sendKeys(passWord);
 		
 		try {
 			Thread.sleep(5000);
@@ -207,9 +199,8 @@ public class Flow_01_signUpAcc extends general {
 			e.printStackTrace();
 		}
 		
-		String xpathSignUp = "//button[@onclick='register()']";
-		WebElement btnClickSignUp = driver.findElement(By.xpath(xpathSignUp));
-		btnClickSignUp.click();
+		commonFunc.xpathBtnRegister(driver, test, btnRegister);;
+		btnRegister.click();
 		
 		try {
 			Thread.sleep(10000);

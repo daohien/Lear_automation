@@ -1,6 +1,7 @@
 package common;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -22,6 +23,12 @@ public class general {
 	public static ExtentTest test;
 	public static ExtentReports extent; 
 	public static commonFunc func = new commonFunc();
+	public static WebElement inputSignPassWord = null;
+	public static WebElement inputUserName = null;
+	public static WebElement btnSignUp = null;
+	public static String url = null;
+	
+	public static WebElement btnRegister = null;
 	
 	@BeforeTest
 	@Parameters({"browser"})
@@ -52,7 +59,7 @@ public class general {
 	
 	@AfterMethod
 	public void saveImage() {
-		test.fail(MediaEntityBuilder.createScreenCaptureFromPath(func.screenShot(driver)).build());		
+		test.info(MediaEntityBuilder.createScreenCaptureFromPath(func.screenShot(driver)).build());	
 
 		extent.flush();
 	}
