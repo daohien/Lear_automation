@@ -23,12 +23,6 @@ public class general {
 	public static ExtentTest test;
 	public static ExtentReports extent; 
 	public static commonFunc func = new commonFunc();
-	public static WebElement inputSignPassWord = null;
-	public static WebElement inputUserName = null;
-	public static WebElement btnSignUp = null;
-	public static String url = null;
-	
-	public static WebElement btnRegister = null;
 	
 	@BeforeTest
 	@Parameters({"browser"})

@@ -4,18 +4,31 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import com.aventstack.extentreports.ExtentTest;
-
+import com.aventstack.extentreports.MediaEntityBuilder;
 
 public class commonFunc {
+	
+	public String screenshot_ele(WebElement ele) {
+		File screenshotFile = ele.getScreenshotAs(OutputType.FILE); //chup 1 ele
+		String new_name = "ele_" + getTimeStem() + ".png"; //"screenshot_20052023_201658.png
+
+		//copy to report folder
+		try {
+			FileUtils.copyFile(screenshotFile , new File("./report/"+new_name));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return new_name;
+	}
+	
 	public String screenShot(WebDriver driver) {
 		try {
 			Thread.sleep(5000);
@@ -23,10 +36,8 @@ public class commonFunc {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		// capture screenshot
 		File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
 		String newName = "./report/screenshot" + getTimeStem() + ".png";
 
 		// copy to report folder
@@ -58,49 +69,40 @@ public class commonFunc {
 		return flag;
 	}
 	
-	public static void maximinze(WebDriver driver, ExtentTest test) {
+	public void maximinze(WebDriver driver, ExtentTest test) {
 		test.info("Maximinze browsers");
 		System.out.println("Maximinze browsers");
 		driver.manage().window().maximize();	
 	}
 	
-	public static void openUrl(WebDriver driver, ExtentTest test, String url) {
-		url = "https://www.demoblaze.com";
+	public void openUrl(WebDriver driver, ExtentTest test, String url) {
 		test.info("Go to url" + url);
 		System.out.println("Go to url" + url);
-		//call link url
 		driver.get("get URL" + url);
 	}
 	
+	public String getCurrentrl(WebDriver driver, ExtentTest test) {
+		String url = driver.getCurrentUrl();
+		test.info("get current url: " + url);
+		System.out.println("get current url: " + url);
+		return url;
+	}
+	
+	public void elementClick(WebDriver driver, ExtentTest test, String xpath) {
+		WebElement btnEle = driver.findElement(By.xpath(xpath));
+		test.info("Click button - xpath " + xpath);
+		test.info(MediaEntityBuilder.createScreenCaptureFromPath(screenshot_ele(btnEle)).build()); //add ele screenshot
+		System.out.println("Click button - xpath " + xpath);
+		btnEle.click();
+	}
+	
 
-	public static void clickBtnSignUp(WebDriver driver, ExtentTest test) {
-		// TODO Auto-generated method stub
-		String xpathBtnSignUp = "//a[@id='signin2']";
-		WebElement btnSignUp = driver.findElement(By.xpath(xpathBtnSignUp));
-		test.info("Xpath btn signup");
-		System.out.println("Xpath btn signup");
-		btnSignUp.click();
-	}
-
-	public static void xpathInputPassWord(WebDriver driver, ExtentTest test, WebElement inputSignPassWord) {
-		// TODO Auto-generated method stub
-		String xpathSignPassWord = "//input[@id='sign-password']";
-		inputSignPassWord = driver.findElement(By.xpath(xpathSignPassWord));
-	}
-	
-	public static void xpathUserName(WebDriver driver, ExtentTest test, WebElement inputUserName) {
-		// TODO Auto-generated method stub
-		String xpathUserName = "//input[@id='sign-username']";
-		inputUserName = driver.findElement(By.xpath(xpathUserName));
-	}
-	
-	
-	
-	public static void xpathBtnRegister(WebDriver driver, ExtentTest test, WebElement btnRegister) {
-		String xpathSignUp = "//button[@onclick='register()']";
-		btnRegister = driver.findElement(By.xpath(xpathSignUp));
-		test.info("Xpath btn SignUp");
-		System.out.println("Xpath btn Signup");
+	public void elementSendkey(WebDriver driver, ExtentTest test, String xpath,String data) {
+		WebElement inputEle = driver.findElement(By.xpath(xpath));
+		test.info("Send data '" + data +"' into - xpath " + xpath);
+		test.info(MediaEntityBuilder.createScreenCaptureFromPath(screenshot_ele(inputEle)).build()); //add ele screenshot
+		System.out.println("Send data '" + data +"' into - xpath " + xpath);
+		inputEle.sendKeys(data);
 	}
 
 	

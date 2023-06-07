@@ -6,7 +6,9 @@
 		<parameter name="browser" value="chrome" />
 		<classes>
 		<!-- 	<class name="project.demoExtentReport" />-->
- 			<class name="project.Flow_01_signUpAcc" /> 
+		
+		<class name="testCases.Flow_01_loginAcc" /> 
+<!--  			<class name="project.Flow_01_signUpAcc" />  -->
 <!-- 			<class name="project.Flow_02_loginAcc" /> -->
 <!--  			<class name="project.Flow_03_aboutUs" />  -->
 <!-- 			<class name="project.Flow_04_projectDetail" /> -->
