@@ -3,24 +3,27 @@ package basedObject;
 import org.openqa.selenium.WebDriver;
 
 import com.aventstack.extentreports.ExtentTest;
+
+import common.commonFunc;
 import common.general;
 
 
-public class Obj_Login  extends general {
+public class Obj_Sign  extends general {
 	
 	// Xpath
 	String xpathIconClose = "//h5[@id='logInModalLabel']/following-sibling::button";
 	String xpathUserName = "//input[@id='sign-username']";
 	String xpathPassWord = "//input[@id='sign-password']";
 	String xpathBtnClose = "//body/div[@id='logInModal']/div[1]/div[1]/div[3]/button[1]";
-	String xpathBtnLogin = "//button[contains(text(),'Log in')]";
+	String xpathBtnSignin = "//button[contains(text(),'Sign up')]";
+	String xpathMenuSignin = "//a[@id='signin2']";
 	WebDriver local_driver; 
 	
 	// Constructor
-	public Obj_Login(WebDriver driver) {
+	public Obj_Sign(WebDriver driver) {
 		local_driver = driver;//gan gia tri cho local driver
 	}
-	
+	public static commonFunc func = new commonFunc();
 	// Action
 	
 	public void clickIconClose(ExtentTest test) {
@@ -39,8 +42,16 @@ public class Obj_Login  extends general {
 		func.elementClick(local_driver, test, xpathBtnClose);
 	}
 	
-	public void clickBtnLogin(ExtentTest test) {
-		func.elementClick(local_driver, test, xpathBtnLogin);
+	public void clickBtnSignin(ExtentTest test) {
+		func.elementClick(local_driver, test, xpathBtnSignin);
+	}
+	
+	public void clickBtnMenuSignin(ExtentTest test) {
+		func.elementClick(local_driver, test, xpathMenuSignin);
+	}
+	
+	public void matchingResult(ExtentTest test, String actualResult, String expectResult) {;
+		func.assertAlert(local_driver, test, actualResult, expectResult);
 	}
 	
 

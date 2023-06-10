@@ -1,5 +1,13 @@
 package common;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,7 +30,6 @@ public class general {
 	public WebDriver driver = null;
 	public static ExtentTest test;
 	public static ExtentReports extent; 
-	public static commonFunc func = new commonFunc();
 	
 	@BeforeTest
 	@Parameters({"browser"})
@@ -47,13 +54,16 @@ public class general {
 			
 		}
 		
+		String url = "https://www.demoblaze.com";
+		driver.get(url);	
+		driver.manage().window().maximize();
 		return driver;
 		
 	}
 	
 	@AfterMethod
 	public void saveImage() {
-		test.info(MediaEntityBuilder.createScreenCaptureFromPath(func.screenShot(driver)).build());	
+		test.info(MediaEntityBuilder.createScreenCaptureFromPath(screenShot(driver)).build());	
 
 		extent.flush();
 	}
@@ -62,5 +72,36 @@ public class general {
 	public void cleanUp() {
 		driver.quit();
 	}
+	
+	public String screenShot(WebDriver driver) {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		LocalDateTime myDateObj = LocalDateTime.now();
+		// System.out.println("Before formatting: " + myDateObj);
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
+
+		String formattedDate = myDateObj.format(myFormatObj);
+		// System.out.println("After formatting: " + formattedDate);
+		
+		// capture screenshot
+		File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		String newName = "./report/screenshot" + formattedDate + ".png";
+
+		// copy to report folder
+		try {
+			FileUtils.copyFile(screenshotFile, new File("./report" + newName));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		return newName;
+	}
+	
 	
 }
