@@ -27,15 +27,79 @@ public class Flow_01_SigninAcc extends general{
 		
 		lgoObj.clickBtnMenuSignin(test);
 		
-		String pass = "Aa123456";
-		lgoObj.inputPassWord(test, pass);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+		lgoObj.inputPassWord(test, "Aa123456");
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		lgoObj.clickBtnSignin(test);
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Alert alert = driver.switchTo().alert();
 		lgoObj.matchingResult(test,  alert.getText(), "Please fill out Username and Password.");
-		alert.accept();
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		alert.accept();	
 		
 		
+	}
+	
+	@Test
+	public void TC02_passWordIsBlank() {
+		test = extent.createTest("TC02_passWordIsBlank"); 
+		
+		lgoObj.clickBtnMenuSignin(test);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		lgoObj.inputPassWord(test,"HienDT");
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		lgoObj.clickBtnSignin(test);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Alert alert = driver.switchTo().alert();
+		
+		lgoObj.matchingResult(test,  alert.getText(), "Please fill out Username and Password.");
+		
+		alert.accept();	
 		
 		
 	}
