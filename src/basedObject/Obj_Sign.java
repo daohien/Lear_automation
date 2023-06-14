@@ -11,10 +11,10 @@ import common.general;
 public class Obj_Sign  extends general {
 	
 	// Xpath
-	String xpathIconClose = "//h5[@id='logInModalLabel']/following-sibling::button";
+	String xpathIconClose = "//h5[@id='signInModalLabel']/following-sibling::button";
 	String xpathUserName = "//input[@id='sign-username']";
 	String xpathPassWord = "//input[@id='sign-password']";
-	String xpathBtnClose = "//body/div[@id='logInModal']/div[1]/div[1]/div[3]/button[1]";
+	String xpathBtnClose = "//body/div[@id='signInModal']/div[1]/div[1]/div[3]/button[1]";
 	String xpathBtnSignin = "//button[contains(text(),'Sign up')]";
 	String xpathMenuSignin = "//a[@id='signin2']";
 	WebDriver local_driver; 

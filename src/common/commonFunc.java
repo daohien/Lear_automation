@@ -73,6 +73,8 @@ public class commonFunc {
 	}
 	
 	
+	
+	
 	public void elementClick(WebDriver driver, ExtentTest test, String xpath) {
 		WebElement btnEle = driver.findElement(By.xpath(xpath));
 		test.info("Click button - xpath " + xpath);

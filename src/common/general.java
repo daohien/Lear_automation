@@ -61,11 +61,18 @@ public class general {
 		
 	}
 	
+	
+	
 	@AfterMethod
-	public void saveImage() {
+	public void openUrlSaveImage() {
+		String url = "https://www.demoblaze.com";
+		driver.get(url);	
+		driver.manage().window().maximize();
+		
 		test.info(MediaEntityBuilder.createScreenCaptureFromPath(screenShot(driver)).build());	
 
 		extent.flush();
+		
 	}
 	
 	@AfterTest
